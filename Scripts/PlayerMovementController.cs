@@ -35,11 +35,11 @@ public class PlayerMovementController : MonoBehaviour
         animator.SetFloat("Vertical", joystick.Vertical);
 
 
-        if(Mathf.Abs(joystick.Horizontal) > 0.9f || Mathf.Abs(joystick.Vertical) > 0.9f)
+        if(Mathf.Abs(joystick.Horizontal) > 0.95f || Mathf.Abs(joystick.Vertical) > 0.95f)
         {
             animator.SetBool("IsRunning", true);
-            rigidbodyController.movementSettings.ForwardSpeed = 16;
-            rigidbodyController.movementSettings.BackwardSpeed = 8;
+            rigidbodyController.movementSettings.ForwardSpeed = 4;
+            rigidbodyController.movementSettings.BackwardSpeed = 4;
         }
         else
         {

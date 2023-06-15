@@ -16,6 +16,7 @@ public class Shooting : MonoBehaviourPunCallbacks
     public float startHealth = 100;
     private float health;
     public Image healthBar;
+    public Image myHealthBar;
 
     private Animator animator;
 
@@ -55,9 +56,6 @@ public class Shooting : MonoBehaviourPunCallbacks
             if (_hit.collider.gameObject.CompareTag("Player")&&!_hit.collider.gameObject.GetComponent<PhotonView>().IsMine)
             {
                 _hit.collider.gameObject.GetComponent<PhotonView>().RPC("TakeDamage",RpcTarget.AllBuffered,10f);
-
-
-
             }
 
         }
@@ -68,7 +66,15 @@ public class Shooting : MonoBehaviourPunCallbacks
     public void TakeDamage(float _damage, PhotonMessageInfo info)
     {
         health -= _damage;
-        Debug.Log(health);
+        if(info.photonView.IsMine)
+        {
+            Debug.Log("My  health is : " + health.ToString());
+        }
+        else
+        {
+            Debug.Log("Oponent health is : " + health.ToString());
+        }
+
         healthBar.fillAmount = health / startHealth;
         if (health<=0f)
         {

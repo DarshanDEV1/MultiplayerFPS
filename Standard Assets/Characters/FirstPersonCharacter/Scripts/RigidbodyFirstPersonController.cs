@@ -120,8 +120,21 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
 
+        [SerializeField] float newForwardSpeed = 1.0f;
+        [SerializeField] float newBackwardSpeed = 1.0f;
+        [SerializeField] float newStrafeSpeed = 1.0f;
+
         private void Start()
         {
+            // Get the reference to the MovementSettings instance
+            MovementSettings movementSettings = GetComponent<RigidbodyFirstPersonController>().movementSettings;
+
+            // Modify the speed values
+            movementSettings.ForwardSpeed = newForwardSpeed;
+            movementSettings.BackwardSpeed = newBackwardSpeed;
+            movementSettings.StrafeSpeed = newStrafeSpeed;
+
+
             m_RigidBody = GetComponent<Rigidbody>();
             m_Capsule = GetComponent<CapsuleCollider>();
             mouseLook.Init (transform, cam.transform);
