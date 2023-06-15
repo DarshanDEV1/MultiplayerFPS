@@ -22,7 +22,7 @@ public class PlayerSetup : MonoBehaviourPunCallbacks
         playerMovementController = GetComponent<PlayerMovementController>();
         if(photonView.IsMine)
         {
-            foreach(GameObject gameObject in FPS_Hands)
+            /*foreach(GameObject gameObject in FPS_Hands)
             {
                 gameObject.SetActive(true);
             }
@@ -30,7 +30,7 @@ public class PlayerSetup : MonoBehaviourPunCallbacks
             foreach(GameObject gameObject in FPS_Body)
             {
                 gameObject.SetActive(false);
-            }
+            }*/
             GameObject playerUiGameobject = Instantiate(playerUIPrefab);
             playerMovementController.joystick = playerUiGameobject.transform.Find("Fixed Joystick").GetComponent<FixedJoystick>();
             playerMovementController.fixedTouchField = playerUiGameobject.transform.Find("Rotation Touch field").GetComponent<FixedTouchField>();
@@ -42,7 +42,7 @@ public class PlayerSetup : MonoBehaviourPunCallbacks
         }
         else
         {
-            foreach(GameObject gameObject in FPS_Hands)
+            /*foreach(GameObject gameObject in FPS_Hands)
             {
                 gameObject.SetActive(false);
             }
@@ -50,7 +50,7 @@ public class PlayerSetup : MonoBehaviourPunCallbacks
             foreach(GameObject gameObject in FPS_Body)
             {
                 gameObject.SetActive(true);
-            }
+            }*/
 
             playerMovementController.enabled = false;
 
