@@ -121,6 +121,7 @@ public class Shooting : MonoBehaviourPunCallbacks
 
         animator.SetBool("IsDead",false);
         deathPanel.SetActive(false);
+        GameObject.Find("MyCanvas").transform.GetChild(0).GetChild(0).GetComponent<Image>().fillAmount = startHealth;
 
         int randomPoint = UnityEngine.Random.Range(-20,20);
         transform.position = new Vector3(randomPoint,0,randomPoint);

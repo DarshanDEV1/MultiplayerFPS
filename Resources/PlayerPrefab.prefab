@@ -3917,7 +3917,7 @@ MonoBehaviour:
     StrafeSpeed: 2
     RunMultiplier: 2
     RunKey: 304
-    JumpForce: 30
+    JumpForce: 50
     SlopeCurveModifier:
       serializedVersion: 2
       m_Curve:
@@ -3968,6 +3968,10 @@ MonoBehaviour:
     slowDownRate: 150
     airControl: 1
     shellOffset: 0
+  m_Jump: 0
+  m_PreviouslyGrounded: 0
+  m_Jumping: 0
+  m_IsGrounded: 0
   joystickInput: {x: 0, y: 0}
   newForwardSpeed: 1
   newBackwardSpeed: 1
@@ -3987,6 +3991,7 @@ MonoBehaviour:
   joystick: {fileID: 0}
   fixedTouchField: {fileID: 0}
   rigidbodyController: {fileID: 5465832013203946284}
+  isSprinting: 0
 --- !u!114 &3806671376755283873
 MonoBehaviour:
   m_ObjectHideFlags: 0

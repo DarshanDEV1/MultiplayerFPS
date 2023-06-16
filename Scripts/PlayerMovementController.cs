@@ -35,12 +35,18 @@ public class PlayerMovementController : MonoBehaviour
         animator.SetFloat("Vertical", joystick.Vertical);
 
 
-        if(Mathf.Abs(joystick.Horizontal) > 0.95f || Mathf.Abs(joystick.Vertical) > 0.95f)
+        if((Mathf.Abs(joystick.Horizontal) > 0.95f && !isSprinting) || (Mathf.Abs(joystick.Vertical) > 0.95f && !isSprinting))
         {
             animator.SetBool("IsRunning", true);
             rigidbodyController.movementSettings.ForwardSpeed = 4;
             rigidbodyController.movementSettings.BackwardSpeed = 4;
         }
+        else if ((Mathf.Abs(joystick.Horizontal) > 0.95f && isSprinting) || (Mathf.Abs(joystick.Vertical) > 0.95f && isSprinting))
+        {
+                animator.SetBool("IsRunning", true);
+                rigidbodyController.movementSettings.ForwardSpeed = 10;
+                rigidbodyController.movementSettings.BackwardSpeed = 6;
+            }
         else
         {
             animator.SetBool("IsRunning", false);
@@ -48,5 +54,23 @@ public class PlayerMovementController : MonoBehaviour
             rigidbodyController.movementSettings.BackwardSpeed = 2;
         }
         }
+    }
+
+    public bool isSprinting = false;
+    public void Sprint()
+    {
+        if(isSprinting)
+        {
+            isSprinting = false;
+        }
+        else
+        {
+            isSprinting = true;
+        }
+    }
+
+    public void Jump()
+    {
+        rigidbodyController.JumpPlayer();
     }
 }

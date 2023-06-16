@@ -37,9 +37,23 @@ public class PlayerSetup : MonoBehaviourPunCallbacks
             playerMovementController.joystick = playerUiGameobject.transform.Find("Fixed Joystick").GetComponent<FixedJoystick>();
             playerMovementController.fixedTouchField = playerUiGameobject.transform.Find("Rotation Touch field").GetComponent<FixedTouchField>();
             playerUiGameobject.transform.Find("FireButton").GetComponent<Button>().onClick.AddListener(()=>shooter.Fire());
-            fpsCamera.enabled = true;
 
-            animator.SetBool("IsSoldier", false);
+            if(!playerMovementController.isSprinting)
+            {
+                playerUiGameobject.transform.Find("SprintButton").GetComponent<Button>().onClick.AddListener(() =>
+                    {
+                        playerMovementController.Sprint();
+                        if (playerUiGameobject.transform.Find("SprintButton").GetComponent<Button>().GetComponent<Graphic>().color == Color.white)
+                            playerUiGameobject.transform.Find("SprintButton").GetComponent<Button>().GetComponent<Graphic>().color = Color.yellow;
+                        else
+                            playerUiGameobject.transform.Find("SprintButton").GetComponent<Button>().GetComponent<Graphic>().color = Color.white;
+                    });
+            }
+
+            playerUiGameobject.transform.Find("JumpButton").GetComponent<Button>().onClick.AddListener(() =>
+                {
+                    playerMovementController.Jump();
+                });
 
         }
         else

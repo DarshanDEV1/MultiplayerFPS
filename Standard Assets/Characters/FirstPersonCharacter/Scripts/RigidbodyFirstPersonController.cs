@@ -14,9 +14,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public float ForwardSpeed = 2.0f;   // Speed when walking forward
             public float BackwardSpeed = 2.0f;  // Speed when walking backwards
             public float StrafeSpeed = 2.0f;    // Speed when walking sideways
-            public float RunMultiplier = 0.0f;   // Speed when sprinting
+            public float RunMultiplier = 2.0f;   // Speed when sprinting
 	        public KeyCode RunKey = KeyCode.LeftShift;
-            public float JumpForce = 30f;
+            public float JumpForce = 50f;
             public AnimationCurve SlopeCurveModifier = new AnimationCurve(new Keyframe(-90.0f, 1.0f), new Keyframe(0.0f, 1.0f), new Keyframe(90.0f, 0.0f));
             [HideInInspector] public float CurrentTargetSpeed = 4f;
 
@@ -87,7 +87,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private CapsuleCollider m_Capsule;
         private float m_YRotation;
         private Vector3 m_GroundContactNormal;
-        private bool m_Jump, m_PreviouslyGrounded, m_Jumping, m_IsGrounded;
+        public bool m_Jump, m_PreviouslyGrounded, m_Jumping, m_IsGrounded;
 
         public Vector2 joystickInput;
 
@@ -275,6 +275,32 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 m_Jumping = false;
             }
+        }
+
+        public void JumpPlayer()
+        {
+            /*if (m_IsGrounded)
+            {
+                //m_RigidBody.drag = 5f;
+
+                if (m_Jump)
+                {
+                    m_RigidBody.drag = 0f;
+                    m_RigidBody.velocity = new Vector3(m_RigidBody.velocity.x, 0f, m_RigidBody.velocity.z);
+                    m_RigidBody.AddForce(new Vector3(0f, movementSettings.JumpForce, 0f), ForceMode.Impulse);
+                    m_Jumping = true;
+                }
+            }
+            else
+            {
+                //m_RigidBody.drag = 0f;
+                if (m_PreviouslyGrounded && !m_Jumping)
+                {
+                    StickToGroundHelper();
+                }
+            }*/
+            //m_RigidBody.AddForce(new Vector3(0f, movementSettings.JumpForce * Time.deltaTime, 0f), ForceMode.Impulse);
+            m_RigidBody.AddForce(Vector3.up * movementSettings.JumpForce, ForceMode.VelocityChange);
         }
     }
 }
