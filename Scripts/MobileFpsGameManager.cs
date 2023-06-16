@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.UI;
 
 public class MobileFpsGameManager : MonoBehaviour
 {
     [SerializeField] GameObject playerPrefab;
     [SerializeField] Transform[] spawnPoints;
+    public Button exitBTN;
     
     // Start is called before the first frame update
     void Start()
@@ -17,12 +19,16 @@ public class MobileFpsGameManager : MonoBehaviour
             PhotonNetwork.Instantiate(playerPrefab.name, spawnPoints[randomPoint].position, Quaternion.identity);
             ////
         }
-        
+        exitBTN.onClick.AddListener(OnClickExitRoom);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnClickExitRoom()
     {
-        
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.Disconnect();
+        //PhotonNetwork.LoadLevel("LobbyScene");
+        PhotonNetwork.ConnectUsingSettings();
+        PhotonNetwork.ReconnectAndRejoin();
+        PhotonNetwork.LoadLevel("LobbyScene");
     }
 }

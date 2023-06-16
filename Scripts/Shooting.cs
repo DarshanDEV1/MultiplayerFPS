@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using System;
+using TMPro;
 
 public class Shooting : MonoBehaviourPunCallbacks
 {
     public Camera FPS_Camera;
-
     public GameObject hitEffectPrefab;
 
 
@@ -16,9 +16,12 @@ public class Shooting : MonoBehaviourPunCallbacks
     public float startHealth = 100;
     private float health;
     public Image healthBar;
-    public Image myHealthBar;
 
     private Animator animator;
+
+    [Header("DeathWinPanels")]
+    [SerializeField] GameObject deathPanel;
+    [SerializeField] GameObject winPanel;
 
     // Start is called before the first frame update
     void Start()
@@ -26,8 +29,8 @@ public class Shooting : MonoBehaviourPunCallbacks
 
         health = startHealth;
         healthBar.fillAmount = health / startHealth;
-
-
+        deathPanel.SetActive(false);
+        winPanel.SetActive(false);
         animator = GetComponent<Animator>();
         
     }
@@ -35,11 +38,7 @@ public class Shooting : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        if (photonView.IsMine)
-        {
-            //myHealthBar.fillAmount = health / startHealth;
-            //GameObject.Find("MyCanvas").transform.GetChild(0).GetChild(0).GetComponent<Image>().fillAmount = health / startHealth;
-        }
+
     }
 
 
@@ -98,6 +97,7 @@ public class Shooting : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             animator.SetBool("IsDead",true);
+            deathPanel.SetActive(true);
             StartCoroutine(Respawn());
         }
     }
@@ -106,7 +106,7 @@ public class Shooting : MonoBehaviourPunCallbacks
     IEnumerator Respawn()
     {
 
-        GameObject reSpawnText = GameObject.Find("Respawn Text");
+        TMP_Text reSpawnText = deathPanel.transform.GetChild(0).GetChild(1).GetComponent<TMP_Text>();
 
 
         float respawnTime = 8.0f;
@@ -114,12 +114,13 @@ public class Shooting : MonoBehaviourPunCallbacks
         {
             yield return new WaitForSeconds(1.0f);
             respawnTime-=1.0f;
-
+            reSpawnText.text = "Time Left: " + respawnTime.ToString();
             transform.GetComponent<PlayerMovementController>().enabled = false;
         }
 
 
         animator.SetBool("IsDead",false);
+        deathPanel.SetActive(false);
 
         int randomPoint = UnityEngine.Random.Range(-20,20);
         transform.position = new Vector3(randomPoint,0,randomPoint);
