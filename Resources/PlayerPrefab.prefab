@@ -712,7 +712,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6269157018087025226
 Transform:
   m_ObjectHideFlags: 0
@@ -2048,7 +2048,7 @@ GameObject:
   - component: {fileID: 7925903825696941396}
   - component: {fileID: 483633019645562517}
   m_Layer: 0
-  m_Name: Canvas
+  m_Name: OponentCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3627,6 +3627,7 @@ MonoBehaviour:
   hitEffectPrefab: {fileID: 284333912837558862, guid: 0eea57872e4991a4fbe05f3d521461c4, type: 3}
   startHealth: 100
   healthBar: {fileID: 8697780882728918109}
+  myHealthBar: {fileID: 0}
 --- !u!1 &6041112012039892320
 GameObject:
   m_ObjectHideFlags: 0

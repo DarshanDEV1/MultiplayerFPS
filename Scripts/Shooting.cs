@@ -35,7 +35,11 @@ public class Shooting : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        
+        if (photonView.IsMine)
+        {
+            //myHealthBar.fillAmount = health / startHealth;
+            //GameObject.Find("MyCanvas").transform.GetChild(0).GetChild(0).GetComponent<Image>().fillAmount = health / startHealth;
+        }
     }
 
 
@@ -68,11 +72,8 @@ public class Shooting : MonoBehaviourPunCallbacks
         health -= _damage;
         if(info.photonView.IsMine)
         {
-            Debug.Log("My  health is : " + health.ToString());
-        }
-        else
-        {
-            Debug.Log("Oponent health is : " + health.ToString());
+            //myHealthBar.fillAmount = health / startHealth;
+            GameObject.Find("MyCanvas").transform.GetChild(0).GetChild(0).GetComponent<Image>().fillAmount = health / startHealth;
         }
 
         healthBar.fillAmount = health / startHealth;
