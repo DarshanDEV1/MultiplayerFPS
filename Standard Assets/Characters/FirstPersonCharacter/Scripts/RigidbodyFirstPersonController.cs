@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace UnityStandardAssets.Characters.FirstPerson
 {
@@ -81,6 +83,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public MovementSettings movementSettings = new MovementSettings();
         public MouseLook mouseLook = new MouseLook();
         public AdvancedSettings advancedSettings = new AdvancedSettings();
+
+        public LayerMask groundLayer;
 
 
         private Rigidbody m_RigidBody;
@@ -279,28 +283,19 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         public void JumpPlayer()
         {
-            /*if (m_IsGrounded)
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, 7, groundLayer) || gameObject.transform.position.y < 0)
             {
-                //m_RigidBody.drag = 5f;
-
-                if (m_Jump)
-                {
-                    m_RigidBody.drag = 0f;
-                    m_RigidBody.velocity = new Vector3(m_RigidBody.velocity.x, 0f, m_RigidBody.velocity.z);
-                    m_RigidBody.AddForce(new Vector3(0f, movementSettings.JumpForce, 0f), ForceMode.Impulse);
-                    m_Jumping = true;
-                }
+                //m_RigidBody.AddForce(Vector3.up * movementSettings.JumpForce, ForceMode.VelocityChange);
+                m_RigidBody.AddForce(Vector3.up * movementSettings.JumpForce, ForceMode.VelocityChange);
+                Debug.DrawRay(transform.position, Vector3.down * hit.distance, Color.blue);
             }
-            else
-            {
-                //m_RigidBody.drag = 0f;
-                if (m_PreviouslyGrounded && !m_Jumping)
-                {
-                    StickToGroundHelper();
-                }
-            }*/
-            //m_RigidBody.AddForce(new Vector3(0f, movementSettings.JumpForce * Time.deltaTime, 0f), ForceMode.Impulse);
-            m_RigidBody.AddForce(Vector3.up * movementSettings.JumpForce, ForceMode.VelocityChange);
+            //m_RigidBody.AddForce(Vector3.up * movementSettings.JumpForce, ForceMode.VelocityChange);
+        }
+
+        public void LandPlayer()
+        {
+            m_RigidBody.AddForce(Vector3.down * movementSettings.JumpForce, ForceMode.VelocityChange);
         }
     }
 }

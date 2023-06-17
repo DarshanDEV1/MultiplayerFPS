@@ -4,6 +4,8 @@ using UnityEngine;
 using Photon.Pun;
 using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine.UI;
+using Photon.Realtime;
+using TMPro;
 
 public class PlayerSetup : MonoBehaviourPunCallbacks
 {
@@ -14,9 +16,13 @@ public class PlayerSetup : MonoBehaviourPunCallbacks
     private Animator animator;
     private Shooting shooter;
     private PlayerMovementController playerMovementController;
+    //[SerializeField] TMP_Text scoreText;
+
     // Start is called before the first frame update
     void Start()
     {
+        //scoreText = playerUIPrefab.transform.Find("ScoreText").GetComponent<TMP_Text>();
+
         animator = GetComponent<Animator>();
         shooter = GetComponent<Shooting>();
         playerMovementController = GetComponent<PlayerMovementController>();
@@ -55,6 +61,10 @@ public class PlayerSetup : MonoBehaviourPunCallbacks
                     playerMovementController.Jump();
                 });
 
+            playerUiGameobject.transform.Find("LandButton").GetComponent<Button>().onClick.AddListener(() =>
+                {
+                    playerMovementController.Land();
+                });
         }
         else
         {
@@ -82,5 +92,10 @@ public class PlayerSetup : MonoBehaviourPunCallbacks
     void Update()
     {
         
+    }
+
+    public void ScoreTextUpdate(int score)
+    {
+        //scoreText.text = "Kills : " + score.ToString();
     }
 }

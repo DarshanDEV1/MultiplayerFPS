@@ -134,6 +134,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.LoadLevel("GameScene");
             PhotonNetwork.CurrentRoom.IsOpen = false;
+            startGameButton.GetComponent<Button>().interactable = false;
         }
         
     }

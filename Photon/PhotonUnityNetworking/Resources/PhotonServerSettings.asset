@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   AppSettings:
-    AppIdRealtime: 2197a088-ebe9-45be-81eb-e959b0bb259a
+    AppIdRealtime: 70365e69-148c-4d44-a6f0-fa8ed8fd9d05
     AppIdFusion: 
     AppIdChat: 
     AppIdVoice: 
-    AppVersion: 0.1
+    AppVersion: 4.1
     UseNameServer: 1
     FixedRegion: 
     Server: 
@@ -28,7 +28,7 @@ MonoBehaviour:
     AuthMode: 0
     EnableLobbyStatistics: 0
     NetworkLogging: 1
-  DevRegion: 
+  DevRegion: in
   PunLogging: 0
   EnableSupportLogger: 0
   RunInBackground: 1
@@ -42,6 +42,11 @@ MonoBehaviour:
   - TakeDamage
   - CreateHitEffect
   - RegainHealth
+  - UpdatePlayerScore
+  - PlayerKilled
+  - InstantiateScorePrefab
+  - ClearScorePanel
+  - GameOver
   DisableAutoOpenWizard: 1
   ShowSettings: 1
-  DevRegionSetOnce: 0
+  DevRegionSetOnce: 1

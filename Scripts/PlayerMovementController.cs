@@ -73,4 +73,8 @@ public class PlayerMovementController : MonoBehaviour
     {
         rigidbodyController.JumpPlayer();
     }
+    public void Land()
+    {
+        rigidbodyController.LandPlayer();
+    }
 }
