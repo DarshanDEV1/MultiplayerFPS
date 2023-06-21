@@ -16,6 +16,7 @@ public class PlayerSetup : MonoBehaviourPunCallbacks
     private Animator animator;
     private Shooting shooter;
     private PlayerMovementController playerMovementController;
+    [SerializeField] private GameObject _fireParticleSystem;
     //[SerializeField] TMP_Text scoreText;
 
     // Start is called before the first frame update
@@ -42,7 +43,15 @@ public class PlayerSetup : MonoBehaviourPunCallbacks
             GameObject playerUiGameobject = Instantiate(playerUIPrefab);
             playerMovementController.joystick = playerUiGameobject.transform.Find("Fixed Joystick").GetComponent<FixedJoystick>();
             playerMovementController.fixedTouchField = playerUiGameobject.transform.Find("Rotation Touch field").GetComponent<FixedTouchField>();
-            playerUiGameobject.transform.Find("FireButton").GetComponent<Button>().onClick.AddListener(()=>shooter.Fire());
+            playerUiGameobject.transform.Find("FireButton").GetComponent<Button>().onClick.AddListener(()=>
+            {
+                shooter.Fire();
+                _fireParticleSystem.GetComponent<ParticleSystem>().Play();
+                _fireParticleSystem.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
+                _fireParticleSystem.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
+                _fireParticleSystem.transform.GetChild(2).GetComponent<ParticleSystem>().Play();
+                _fireParticleSystem.transform.GetChild(3).GetComponent<ParticleSystem>().Play();
+            });
 
             if(!playerMovementController.isSprinting)
             {
