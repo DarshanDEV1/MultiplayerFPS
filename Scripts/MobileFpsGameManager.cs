@@ -17,6 +17,7 @@ public class MobileFpsGameManager : MonoBehaviourPunCallbacks
     private int highestKills = 0;
     [SerializeField] Transform[] spawnPoints;
     [SerializeField] GameObject scorePanel;
+    [SerializeField] GameObject chatPanel;
     [SerializeField] GameObject scorePrefab;
     [SerializeField] Transform instantiatePosition;
     private List<GameObject> scorePrefabs = new List<GameObject>();
@@ -52,8 +53,8 @@ public class MobileFpsGameManager : MonoBehaviourPunCallbacks
             playerKills[killerID] += 1;
             UpdateScorePanel();
 
-            // Check if the player has reached 3 kills
-            if (playerKills[killerID] >= 3)
+            // Check if the player has reached 6 kills
+            if (playerKills[killerID] >= 6)
             {
                 //GameOver(killer.NickName);
                 //PhotonView photonView = PhotonView.Get(this);
@@ -139,6 +140,10 @@ public class MobileFpsGameManager : MonoBehaviourPunCallbacks
     public void OnClickToggleScoreWindow()
     {
         scorePanel.SetActive(!scorePanel.activeInHierarchy);
+    }
+    public void OnClickToggleChatWindow()
+    {
+        chatPanel.SetActive(!chatPanel.activeInHierarchy);
     }
 
     /*    private void UpdateScorePanel()
