@@ -95,6 +95,15 @@ public class PlayerSetup : MonoBehaviourPunCallbacks
             fpsCamera.enabled = false;
             animator.SetBool("IsSoldier", true);
         }
+
+        GameObject.FindGameObjectWithTag("Send").GetComponent<Button>().onClick.AddListener(() =>
+        {
+            if (photonView.IsMine)
+            {
+                GameObject.FindGameObjectWithTag("GameManager").GetComponent<ChatSystem>().Call(PhotonNetwork.NickName, GameObject.FindGameObjectWithTag("Input").GetComponent<TMP_InputField>().text);
+                GameObject.FindGameObjectWithTag("Input").GetComponent<TMP_InputField>().text = "";
+            }
+        });
     }
 
     // Update is called once per frame

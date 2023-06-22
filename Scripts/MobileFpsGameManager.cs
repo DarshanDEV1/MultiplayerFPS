@@ -22,6 +22,7 @@ public class MobileFpsGameManager : MonoBehaviourPunCallbacks
     [SerializeField] Transform instantiatePosition;
     private List<GameObject> scorePrefabs = new List<GameObject>();
     public bool gameOver = false;
+    [SerializeField] private GameObject _messageObject;
 
     private void Start()
     {
@@ -34,6 +35,14 @@ public class MobileFpsGameManager : MonoBehaviourPunCallbacks
         GameOverPanel.SetActive(false);
         gameOver = false;
     }
+
+    /*public void SpawnMessage(string name)
+    {
+        GetComponent<ChatSystem>()._sendButton.onClick.AddListener(() =>
+        {
+            GetComponent<ChatSystem>().Call(name);
+        });
+    }*/
 
     [PunRPC]
     public void PlayerKilled(string killerName, string victimName)
@@ -144,6 +153,7 @@ public class MobileFpsGameManager : MonoBehaviourPunCallbacks
     public void OnClickToggleChatWindow()
     {
         chatPanel.SetActive(!chatPanel.activeInHierarchy);
+        _messageObject.SetActive(!_messageObject.activeInHierarchy);
     }
 
     /*    private void UpdateScorePanel()
@@ -199,8 +209,6 @@ public class MobileFpsGameManager : MonoBehaviourPunCallbacks
         scoreInstance.transform.SetParent(instantiatePosition);
         scoreInstance.GetComponent<PlayerScore>().SetPlayerScore(playerName, playerScore);
     }
-
-
     [PunRPC]
     private void ClearScorePanel()
     {

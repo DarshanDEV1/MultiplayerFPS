@@ -8,29 +8,32 @@ using UnityEngine.UI;
 
 public class ChatSystem : MonoBehaviourPun
 {
-    [SerializeField] TMP_InputField _messageInput;
-    [SerializeField] Button _sendButton;
-    [SerializeField] GameObject _messagePrefab;
-    [SerializeField] Transform _messagePanel;
-    [SerializeField] Transform instantiatePosition;
+    public TMP_InputField _messageInput;
+    public Button _sendButton;
+    public GameObject _messagePrefab;
+    public Transform instantiatePosition;
+    public Transform _messagePanel;
 
     // Start is called before the first frame update
     void Start()
     {
-        if(photonView.IsMine)
+        /*if(photonView.IsMine)
         {
             _sendButton.onClick.AddListener(() =>
             {
                 photonView.RPC("UpdateMessage", RpcTarget.AllBuffered);
             });
-        }
+        }*/
     }
-
+    public void Call(string name, string message)
+    {
+        photonView.RPC("UpdateMessage", RpcTarget.AllBuffered, name, message);
+    }
     [PunRPC]
-    private void UpdateMessage()
+    private void UpdateMessage(string name, string message)
     {
         GameObject messageInstance = PhotonNetwork.Instantiate(_messagePrefab.name, instantiatePosition.position, Quaternion.identity); //Instantiate(scorePrefab, instantiatePosition);
         messageInstance.transform.SetParent(instantiatePosition);
-        messageInstance.GetComponent<ChatSendRcv>().SetChatMessage(PhotonNetwork.LocalPlayer.NickName, _messageInput.text);
+        messageInstance.GetComponent<ChatSendRcv>().SetChatMessage(name, message);
     }
 }
